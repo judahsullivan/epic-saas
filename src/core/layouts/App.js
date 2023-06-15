@@ -8,8 +8,6 @@ export default function AppLayout({children}) {
     <Meta />
     <Navbar />
     {children}
-
-
     </Fragment> 
   )
 

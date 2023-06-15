@@ -1,6 +1,9 @@
 import { Fragment } from "react";
+import ProductCard from "src/products/components/Card";
+import { supabase } from "supabase";
 
-export default function ProductsPage() {
+export default function ProductsPage({products}) {
+  console.log(products)
   return(
   <Fragment>
       <div className="section bg-blue">
@@ -14,10 +17,26 @@ export default function ProductsPage() {
         
         <div className="container">
           <ul className="product-card-grid">
-
+            {products.map((product) => (
+              <ProductCard 
+                key={product.id}
+                product={product}
+              />
+            ))}
           </ul>
         </div>
       </div>
     </Fragment>
   )
+}
+
+export async function getStaticProps(){
+    let {data: products } = await supabase.from('product').select('*');
+
+  return{
+    props:{
+      products,
+
+    },
+  }
 }
